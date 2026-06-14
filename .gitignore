@@ -1,0 +1,23 @@
+# Engagement loot / output — never commit real creds or dumps
+*.ccache
+*.kirbi
+*.dmp
+*.ntds
+*.pfx
+*_hashes*
+hashes*
+kerberoast*.txt
+asrep*.txt
+loot/
+output/
+
+# Tooling artifacts
+*.zip
+bh_output*
+neo4j/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

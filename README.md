@@ -25,6 +25,22 @@ Trust Attacks      →  Child→Parent, forest trust, SID history
 
 ---
 
+## Engagement Methodology 
+
+| Phase | Goal | Key Techniques | 
+|-------|------|----------------|
+| 1. Initial Foothold | Get valid domain credentials or unauthenticated access | LLMNR/NBT-NS poison, password spray, anonymous LDAP, AS-REP |
+| 2. Domain Enumeration | Map the AD environment, users, groups, GPOs, trusts | BloodHound, PowerView, ldapsearch, CrackMapExec, ADSI | 
+| 3. Credential Harvesting | Obtain more hashes and plaintext passwords | Kerberorasting, secretdup, LSASS dump, SAM, DPAPI |
+| 4. Privilege Escalation | Move form low-priv domain user to Domain Admin | ACL abuse, delegation, GPO abouse, AS-REP, Kerberoast | 
+| 5. Lateral Movement | Move across machiens to reach target systems | PTH, PTT, WinRM, SMB, RDP, DCOM, WMI | 
+| 6. Domain Dominance | Own the domain: DCSync, Golden/Silver Ticker | DCSync, NTDS.dit, Golden Ticket, Skeleton Key | 
+| 7. Forest Attacks | Cross trust boundaries to compromise other forests | SID history, trust ticktes, foreing group memebers | 
+| 8. Persistence | Maintenance access after password changes | Golden Ticket, DC Shadow, AdminSDHolder, ACL backdoor | 
+
+
+---
+
 ## Notes Index
 
 | Topic | File | Summary |

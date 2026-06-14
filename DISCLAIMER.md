@@ -9,7 +9,7 @@ All content in this repository is created for **educational purposes**, personal
   - [GOAD (Game of Active Directory)](https://github.com/Orange-Cyberdefense/GOAD) — local home lab
   - [HackTheBox](https://www.hackthebox.com/) — authorized practice platform
   - [TryHackMe](https://tryhackme.com/) — authorized practice platform
-  - [Proving Ground Practice](https://offsec.com/pgpractice) — authorized training platform
+  - [Proving Ground Practice](https://www.offsec.com/products/proving-grounds/) — authorized training platform
 - Reference material during authorized penetration testing engagements
 
 ## What This Is Not
