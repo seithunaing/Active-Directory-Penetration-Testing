@@ -8,6 +8,15 @@
 
 ---
 
+## ⚠️ Legal Notice
+
+This material is intended **only** for authorized penetration testers and for CAPE exam
+preparation in lab environments you own or are explicitly authorized to test. Using these
+techniques against systems without explicit written authorization is illegal. You are
+responsible for complying with all applicable laws.
+
+---
+
 ## Coverage
 
 ```
@@ -43,25 +52,22 @@ Trust Attacks      →  Child→Parent, forest trust, SID history
 
 ## Notes Index
 
-| Topic | File | Summary |
-|-------|------|---------|
-| Enumeration | [enumeration/bloodhound.md](enumeration/bloodhound.md) | BloodHound setup, collection, key queries |
-| Enumeration | [enumeration/powerview.md](enumeration/powerview.md) | Full PowerView command reference |
-| Enumeration | [enumeration/ldap-smb.md](enumeration/ldap-smb.md) | LDAP, SMB null session, CME, enum4linux |
-| Exploitation | [exploitation/kerberoasting.md](exploitation/kerberoasting.md) | Kerberoast from Linux + Windows, cracking |
-| Exploitation | [exploitation/asrep-roasting.md](exploitation/asrep-roasting.md) | AS-REP roast without credentials |
-| Exploitation | [exploitation/password-spray.md](exploitation/password-spray.md) | CME spray, Kerbrute, lockout awareness |
-| Exploitation | [exploitation/pass-the-hash.md](exploitation/pass-the-hash.md) | PTH with impacket, CME, evil-winrm |
-| Exploitation | [exploitation/delegation.md](exploitation/delegation.md) | Unconstrained, constrained, RBCD |
-| Exploitation | [exploitation/acl-abuse.md](exploitation/acl-abuse.md) | ACL enumeration and abuse chains |
-| Post-Exploitation | [post-exploitation/mimikatz.md](post-exploitation/mimikatz.md) | Full Mimikatz command reference |
-| Post-Exploitation | [post-exploitation/dcsync.md](post-exploitation/dcsync.md) | DCSync, NTDS.dit extraction, offline dump |
-| Post-Exploitation | [post-exploitation/lateral-movement.md](post-exploitation/lateral-movement.md) | PSExec, WMI, WinRM, RDP |
-| Post-Exploitation | [post-exploitation/golden-silver-ticket.md](post-exploitation/golden-silver-ticket.md) | Ticket attacks and persistence |
-| Persistence | [persistence/persistence-techniques.md](persistence/persistence-techniques.md) | Registry, tasks, GPO, AdminSDHolder |
-| Cheatsheets | [cheatsheets/impacket.md](cheatsheets/impacket.md) | Complete impacket suite reference |
-| Cheatsheets | [cheatsheets/crackmapexec.md](cheatsheets/crackmapexec.md) | Full CME command reference |
-| Cheatsheets | [cheatsheets/attack-decision-tree.md](cheatsheets/attack-decision-tree.md) | What to do when you find X |
+| # | Section | Topics |
+|---|---------|--------|
+| 01 | [Methodology & Lab Setup](01-methodology-and-lab-setup.md) | Exam overview, engagement methodology, tooling |
+| 02 | [Enumeration](02-enumeration.md) | LDAP, BloodHound, PowerView, CrackMapExec / NetExec |
+| 03 | [Kerberos Attacks](03-kerberos-attacks.md) | Kerberoasting, AS-REP roasting, Pass-the-Ticket, OPtH |
+| 04 | [Password Attacks & Credential Abuse](04-password-attacks-and-credential-abuse.md) | Spraying, hash dumping, DPAPI |
+| 05 | [Kerberos Delegation Attacks](05-kerberos-delegation-attacks.md) | Unconstrained, constrained, RBCD |
+| 06 | [ACL / DACL Abuse](06-acl-dacl-abuse.md) | Dangerous rights, enumeration, exploitation |
+| 07 | [Lateral Movement Techniques](07-lateral-movement.md) | PtH, WinRM, RDP, DCOM, token impersonation |
+| 08 | [Domain Privilege Escalation](08-domain-privilege-escalation.md) | GPO abuse, AdminSDHolder, Exchange, Backup Operators |
+| 09 | [MSSQL Attacks & Linked Server Chains](09-mssql-attacks.md) | Enumeration, command exec, linked servers |
+| 10 | [Pivoting & Tunneling](10-pivoting-and-tunneling.md) | SSH, Chisel, Ligolo-ng, proxychains |
+| 11 | [Domain Persistence](11-domain-persistence.md) | Golden/Silver Ticket, DCSync, Skeleton Key, DCShadow |
+| 12 | [Forest & Trust Attacks](12-forest-and-trust-attacks.md) | Trust enumeration, intra-/inter-forest attacks |
+| 13 | [Defense Evasion & AV Bypass](13-defense-evasion.md) | AMSI bypass, execution bypass, EDR evasion, OPSEC |
+| 14 | [CAPE Exam Tips & Cheatsheet](14-cape-exam-tips-and-cheatsheet.md) | Strategy, decision tree, one-liners, detection IDs |
 
 ---
 
