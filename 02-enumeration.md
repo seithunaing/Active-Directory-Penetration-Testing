@@ -27,10 +27,15 @@ enum4linux-ng -A -u '' -p '' $DC_IP
 # RID cycling (enumerate users by RID without creds)
 crackmapexec smb $DC_IP --rid-brute
 netexec smb $DC_IP --rid-brute 10000
+netexec smb $DC_IP -u '.' -p '' --rid-brute
 
 # Kerbrute — valid username enumeration via Kerberos
 kerbrute userenum --dc $DC_IP --domain $DOMAIN /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt
 kerbrute userenum --dc $DC_IP -d $DOMAIN users.txt -o valid_users.txt
+
+# Rpcclient
+rpcclient -U "" -N $DC_IP
+rpcclient -U <username> $DC_IP 
 ```
 
 ### Initial SMB/NetBIOS Enumeration

