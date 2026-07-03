@@ -180,6 +180,9 @@ bloodhound-python -d $DOMAIN -u $USER -p $PASS -c All,LoggedOn -ns $DC_IP --zip
 # Via Kerberos ticket
 bloodhound-python -d $DOMAIN -u $USER -k --no-pass -c All -ns $DC_IP
 
+# Via ldap
+nxc ldap DC01.example.com -u 'username' -p 'password' --bloodhound --collection All --dns-server $DC_IP
+
 # Import to BloodHound
 # Start neo4j: sudo neo4j start
 # Open BloodHound, click Upload Data, select .zip
