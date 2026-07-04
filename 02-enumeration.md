@@ -36,6 +36,9 @@ kerbrute userenum --dc $DC_IP -d $DOMAIN users.txt -o valid_users.txt
 # Rpcclient
 rpcclient -U "" -N $DC_IP
 rpcclient -U <username> $DC_IP 
+> enumdomusers 
+> enumdomains
+> enumdomgroups
 ```
 
 ### Initial SMB/NetBIOS Enumeration
@@ -44,6 +47,8 @@ rpcclient -U <username> $DC_IP
 # SMB null session
 smbclient -L //$DC_IP -N
 smbclient -L //$DC_IP -U ''%''
+
+smbclient -U 'DOMAIN/$USER%$PASS' //$DC_IP/SHARED-NAME
 
 # Enumerate shares
 crackmapexec smb $DC_IP -u '' -p '' --shares

