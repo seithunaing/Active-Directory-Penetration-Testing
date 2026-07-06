@@ -46,10 +46,13 @@ impacket-mssqlclient $DOMAIN/$USER:$PASS@$SQL_IP -windows-auth
 impacket-mssqlclient $USER:$PASS@$SQL_IP
 ```
 
-```text
+```bash
 # Once connected:
 SQL> enable_xp_cmdshell
 SQL> xp_cmdshell whoami
+SQL> xp_dirtree
+
+# Refer to Cheat Sheet
 ```
 
 ```powershell

