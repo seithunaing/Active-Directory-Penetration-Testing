@@ -1,4 +1,4 @@
-# 06 — ACL / DACL Abuse
+# 06 — ACL / DACL / AD CS Abuse
 
 [← Back to index](README.md)
 
@@ -200,6 +200,8 @@ certipy-ad account read -u 'user' -p '$PASS' -dc-ip '$DC_IP' -user 'Administrato
 # When performing this attack remotely, you may encounter the SessionError: KRB_AP_ERR_SKEW (Clock skew too great). This indicates that your machine’s clock is out of sync with the Domain Controller. The simplest solution is to synchronize the clocks using ntpdate.
 sudo ntpdate $DC_IP
 ```
+
+- [TheHackerRecipes](https://www.thehacker.recipes/ad/movement/dacl/)
 
 ---
 

