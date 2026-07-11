@@ -198,6 +198,8 @@ certipy-ad account read -u 'user' -p '$PASS' -dc-ip '$DC_IP' -user 'Administrato
 
 # Follow the process with ECS number 
 # When performing this attack remotely, you may encounter the SessionError: KRB_AP_ERR_SKEW (Clock skew too great). This indicates that your machine’s clock is out of sync with the Domain Controller. The simplest solution is to synchronize the clocks using ntpdate.
+timedatectl set-ntp off
+
 sudo ntpdate $DC_IP
 ```
 

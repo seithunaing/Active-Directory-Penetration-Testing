@@ -7,7 +7,10 @@
 ```bash
 # Discover MSSQL instances
 nmap -sV -p 1433 10.10.10.0/24 --script ms-sql-info,ms-sql-config,ms-sql-empty-password
-crackmapexec mssql 10.10.10.0/24 -u $USER -p $PASS
+nxc mssql 10.10.10.0/24 -u $USER -p $PASS
+
+nxc mssql 10.10.10.100 -u sa -p $PASS --local-auth
+nxc mssql 10.10.10.100 -u sa -p $PASS --local-auth -x whoami
 ```
 
 ```powershell
