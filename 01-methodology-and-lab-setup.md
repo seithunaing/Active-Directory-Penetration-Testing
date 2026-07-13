@@ -92,6 +92,10 @@ alias nxc='netexec'
 
 # Quick Kerberos ticket setup
 export KRB5CCNAME=/tmp/krb5cc_ticket.ccache
+
+nxc smb DC01.corp.local --generate-krb5-file corp.local
+# We will get corp.krb file 
+sudo cp corp.krb /etc/krb5.conf
 ```
 
 ## 1.4 Main ports focused on 

