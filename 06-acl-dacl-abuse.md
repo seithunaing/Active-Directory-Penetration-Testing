@@ -187,7 +187,8 @@ python3 getnthash.py -key SESSION_KEY $DOMAIN/target_user
 ```
 
 ### Active Directory Certificate Services (AD CS)
-- [Certipy](https://github.com/ly4k/Certipy/wiki)
+- [Certipy-Wiki](https://github.com/ly4k/Certipy/wiki)
+- [wmiexec2](https://github.com/ice-wzl/wmiexec2) AV/EDR Compatilitity 
 
 ```shell
 # Rescourse 

