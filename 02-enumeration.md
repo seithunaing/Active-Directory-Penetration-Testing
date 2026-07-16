@@ -63,6 +63,9 @@ smbclient --realm=corp.local
 nxc smb $DC_IP -u '' -p '' --shares
 nxc smb $DC_IP -u '' -p '' --shares
 
+# Spider_Plus to download SMB folders 
+nxc smb $DC_IP -u $USER -p $PASS -M spider_plus
+
 # Nmap AD scripts
 nmap -sV -p 88,389,445,464,636,3268,3269 --script 'ldap*,smb*,krb5*' $DC_IP
 nmap --script ms-sql-info,ms-sql-config,ms-sql-empty-password -p 1433 10.10.10.0/24
@@ -244,6 +247,11 @@ MATCH (c:Computer {unconstraineddelegation:true}) RETURN c
 // Find all owned principals with DA path
 MATCH (n {owned:true}), (target:Group {name:'DOMAIN ADMINS@CORP.LOCAL'}),
 p=shortestPath((n)-[*1..10]->(target)) RETURN p
+
+// Find User or Computer and Check the Object Info (especially password date)
+MATCH p=(source)-[r]->(target) WHERE (source:Computer or source:User)
+AND type(r) <> 'MemberOf'
+RETURN p
 ```
 
 ## 2.5 PowerView Enumeration

