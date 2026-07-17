@@ -9,6 +9,7 @@
 ```bash
 # Check if anonymous LDAP bind is allowed
 ldapsearch -x -H ldap://$DC_IP -s base namingcontexts
+ldapsearch -x -H ldap://$DC_IP -s sub -b 'DC=corp,DC=local' | grep corp | grep Legacy
 ldapsearch -x -H ldap://$DC_IP -b '' -s base '(objectClass=*)' '*' +
 
 # Enumerate users anonymously
