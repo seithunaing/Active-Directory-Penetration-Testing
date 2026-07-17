@@ -59,13 +59,19 @@ smbclient -U 'DOMAIN/$USER%$PASS' //$DC_IP/SHARED-NAME
 
 smbclient --realm=corp.local 
 
+# SMB Download 
+> RECURSE on
+> Prompt 
+> mget *
+
+
 # Enumerate shares
 # Use -k with krb5.conf
 nxc smb $DC_IP -u '' -p '' --shares
 nxc smb $DC_IP -u '' -p '' --shares
 
 # Spider_Plus to download SMB folders 
-nxc smb $DC_IP -u $USER -p $PASS -M spider_plus
+nxc smb $DC_IP -u $USER -p $PASS -M spider_plus -o EXCLUDE_FILTER='print$,ipc$,SYSVOL,NETLOGON'
 
 # Nmap AD scripts
 nmap -sV -p 88,389,445,464,636,3268,3269 --script 'ldap*,smb*,krb5*' $DC_IP

