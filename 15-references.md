@@ -5,7 +5,8 @@
 ## Reference Links
 
 ### Write-up
-- [RanaKhalil](https://rana-khalil.gitbook.io/hack-the-box-oscp-preparation)
+- [Active Directory Mindmap v2025.03](https://orange-cyberdefense.github.io/ocd-mindmaps/img/mindmap_ad_dark_classic_2025.03.excalidraw.svg)
+
 
 ### Methdology 
 - [HackTricks](https://book.hacktricks.wiki/en/index.html)

