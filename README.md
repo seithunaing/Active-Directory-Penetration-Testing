@@ -20,12 +20,12 @@ responsible for complying with all applicable laws.
 ## Coverage
 
 ```
-Enumeration        →  BloodHound, PowerView, LDAP, CME, rpcclient
+Enumeration        →  BloodHound, PowerView, LDAP, nxc, rpcclient, cme
 Kerberos Attacks   →  Kerberoasting, AS-REP Roasting, Pass-the-Ticket
 Credential Attacks →  Password Spray, Pass-the-Hash, Mimikatz, DCSync
 Delegation Abuse   →  Unconstrained, Constrained, RBCD
 ACL Abuse          →  GenericAll, GenericWrite, WriteOwner, Shadow Credentials
-Lateral Movement   →  PSExec, WMIExec, Evil-WinRM, RDP, DCOM
+Lateral Movement   →  PSExec, WMIExec, WMIExec2, Evil-WinRM, RDP, DCOM
 Domain Dominance   →  Golden Ticket, Silver Ticket, Skeleton Key, DCShadow
 MSSQL Attacks      →  xp_cmdshell, linked servers, impersonation
 Persistence        →  Registry, scheduled tasks, GPO, AdminSDHolder
@@ -95,7 +95,7 @@ Trust Attacks      →  Child→Parent, forest trust, SID history
 | [Rubeus](https://github.com/GhostPack/Rubeus) | Kerberos attacks | Pre-compiled Windows binary |
 | [PowerView](https://github.com/PowerShellMafia/PowerSploit) | AD enumeration | PowerShell module |
 | [Certipy](https://github.com/ly4k/Certipy) | ADCS attacks | `pip install certipy-ad` |
-| [bloodyAD](https://github.com/CravateRouge/bloodyAD) | AD Privilege Escalation | `sudo apt install bloodyad` |
+| [bloodyAD](https://github.com/CravateRouge/bloodyAD) | AD Privilege Escalation Swiss Army Knife | `sudo apt install bloodyad` |
 
 ---
 
