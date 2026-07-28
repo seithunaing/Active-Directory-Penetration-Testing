@@ -89,11 +89,13 @@ Trust Attacks      →  Child→Parent, forest trust, SID history
 | Tool | Purpose | Install |
 |------|---------|---------|
 | [BloodHound](https://github.com/BloodHoundAD/BloodHound) | AD graph analysis | `sudo apt install bloodhound` |
-| [Impacket](https://github.com/fortra/impacket) | AD/Windows protocols | `pip install impacket` |
+| [Impacket](https://github.com/fortra/impacket) | AD/Windows protocols | `pipx install impacket` |
+| [NetExec](https://github.com/Pennyw0rth/NetExec) | Network Service Exploitation Tools | `sudo apt install netexec` |
 | [CrackMapExec](https://github.com/byt3bl33d3r/CrackMapExec) | Swiss army knife | `sudo apt install crackmapexec` |
 | [Rubeus](https://github.com/GhostPack/Rubeus) | Kerberos attacks | Pre-compiled Windows binary |
 | [PowerView](https://github.com/PowerShellMafia/PowerSploit) | AD enumeration | PowerShell module |
 | [Certipy](https://github.com/ly4k/Certipy) | ADCS attacks | `pip install certipy-ad` |
+| [bloodyAD](https://github.com/CravateRouge/bloodyAD) | AD Privilege Escalation | `sudo apt install bloodyad` |
 
 ---
 

