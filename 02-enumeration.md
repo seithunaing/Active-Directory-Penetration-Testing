@@ -209,7 +209,7 @@ nxc smb $DC_IP -u $USER -p $PASS -M spider_plus \
     -o INCLUDE_EXTENSIONS=txt,conf,config,ini,xml,ps1,bat,sh
 ```
 
-## 2.4 BloodHound / SharpHound Collection
+## 2.4 BloodHound / SharpHound / RustHound-CE Collection
 
 ```powershell
 # Run SharpHound collector (Windows)
@@ -226,10 +226,13 @@ bloodhound-python -d $DOMAIN -u $USER -p $PASS -c All -ns $DC_IP
 bloodhound-python -d $DOMAIN -u $USER -p $PASS -c All,LoggedOn -ns $DC_IP --zip
 
 # Via Kerberos ticket
-bloodhound-python -d $DOMAIN -u $USER -k --no-pass -c All -ns $DC_IP
+bloodhound-python -d $PASS -u $USER -k --no-pass -c All -ns $DC_IP
 
 # Via ldap
-nxc ldap DC01.example.com -u 'username' -p 'password' --bloodhound --collection All --dns-server $DC_IP
+nxc ldap DC01.example.com -u '$USER' -p '$PASS' --bloodhound --collection All --dns-server $DC_IP
+
+# Rusthound-CE 
+rusthound-ce -d $DOMAIN -u '$USER' -p '$PASS' --zip
 
 # Import to BloodHound
 # Start neo4j: sudo neo4j start

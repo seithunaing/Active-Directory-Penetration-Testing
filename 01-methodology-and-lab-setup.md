@@ -109,6 +109,7 @@ sudo cp corp.krb /etc/krb5.conf
 | 1433 | MS-SQL |
 | 389/636 | LDAP/LDAPS |
 | 464 | kpasswd |
+| 2179 | vmrdp |
 | 3389 | RDP | 
 | 3268/3269 | Global Catalog |
 | 5985 | WinRM | 

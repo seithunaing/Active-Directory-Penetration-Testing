@@ -11,6 +11,7 @@
 ### Methdology 
 - [HackTricks](https://book.hacktricks.wiki/en/index.html)
 - [TheHackerRecipes](https://www.thehacker.recipes)
+- [Infosecn1nja](https://github.com/screetsec/AD-Attack-Defense)
 - [Hackviser](https://hackviser.com/tactics/pentesting)
 
 
