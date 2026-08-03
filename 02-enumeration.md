@@ -26,7 +26,7 @@ enum4linux-ng -A $DC_IP
 enum4linux-ng -A -u '' -p '' $DC_IP
 
 # RID cycling (enumerate users by RID without creds)
-crackmapexec smb $DC_IP --rid-brute
+nxc smb $DC_IP --rid-brute
 netexec smb $DC_IP --rid-brute 10000
 netexec smb $DC_IP -u '.' -p '' --rid-brute
 
