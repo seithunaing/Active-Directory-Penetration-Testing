@@ -213,6 +213,8 @@ nxc smb $DC_IP -u $USER -p $PASS -M spider_plus \
 
 ```powershell
 # Run SharpHound collector (Windows)
+# Use Loader 
+C:\Tools\Loader.exe -Path C:\Tools\SharpHound.exe -args --collectionmethods All
 # Download: https://github.com/BloodHoundAD/SharpHound
 .\SharpHound.exe -c All --zipfilename bh_output
 .\SharpHound.exe -c All,GPOLocalGroup --zipfilename bh_output
@@ -241,6 +243,14 @@ bloodyad -H $DC_IP -d $DOMAIN -u '$USER' -p ':$HASH' get bloodhound
 # Import to BloodHound
 # Start neo4j: sudo neo4j start
 # Open BloodHound, click Upload Data, select .zip
+
+# LOTL Method
+C:\Tools\Loader.exe -Path C:\Tools\SharpHound.exe -args --collectionmethods Group,GPOlocalGroup,Session,Trusts,ACL,Container,ObjectProps,SPNTargets,CertServices --excludedcs
+
+# Build a cache
+SOAPHound.exe --buildcache -c C:\Tools\cache.txt 
+# Collect Bloodhound compatible data
+SOAPHound.exe -c C:\Tools\cache.txt --bhdump -o C:\Tools\bloodhound-output --nolaps
 ```
 
 ### Key BloodHound Cypher Queries
@@ -277,6 +287,18 @@ RETURN p
 # Load PowerView (bypass AMSI first if needed)
 [System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
 . .\PowerView.ps1
+
+# Domain Enumeration 
+Get-DomainUser
+Get-DomainUser -Identity name 
+Get-DomainUser | select SamAccountName, LogonCount 
+
+Get-ADUser -Filter * -Properties *
+Get-ADUser -Identity name -Properties * 
+
+Get-DomainComputer | Select Name
+Get-DomainComputer -OperatingSystem "*Server 2019*"
+Get-DomainComputer -Ping 
 
 # Domain info
 Get-NetDomain
@@ -332,6 +354,78 @@ Find-InterestingDomainAcl -ResolveGUIDs | Where-Object {$_.IdentityReferenceName
 # ACL for specific object
 Get-ObjectAcl -SamAccountName 'Domain Admins' -ResolveGUIDs
 Get-ObjectAcl -ADSpath 'CN=Domain Admins,CN=Users,DC=corp,DC=local' -ResolveGUIDs
+```
+
+## 2.6 ADModule Enumeration 
+
+```powershell
+# Load ADModule
+Import-Module C:\AD\Microsoft.ActiveDirectory.Management.dll
+Import-Module C:\AD\ActiveDirectory\ActiveDirectory.pds1
+
+# Domain Policy
+Get-DomainPolicyData 
+(Get-DomainPolicyData).systemaccess
+
+(Get-DomainPolicyData -domain moneycorp.local).systemaccess
+
+# Domain Enumeration
+Get-DomainUser
+Get-DomainUser -Identity name 
+Get-ADUser -Filter * -Properties *
+Get-ADUser -Identity name -Properties * 
+
+# if the account has high login value, some scripts or automation running. 
+Get-DomainUser -Identity <name> -Properties * 
+Get-DomainUser -Properties samaccountname,logonCount
+
+# Strings in user's attribute
+Get-DomainUser -LDAPFilter "Description=*built* | Select name,Description 
+Get-ADUser -Filter 'Description -like "*built*"' -Properties Description | select name,Description
+
+# Domain Computer 
+Get-DomainComputer | Select samaccountname
+Get-DomainComputer | Select samaccountname, logoncount 
+
+# Get all the groups in the current domain
+Get-DomainGroup | Select Name
+Get-DomainGroup -Domain <targetDomain>
+Get-ADGroup -Filter * | Select Name
+Get-ADGroup -Filter * -Properties * 
+
+Get-DomainGroup *admin* 
+Get-DomainGroup *admin* | Select cn
+
+# Check Enterprise Admin
+Get-DomainGroup *admin* -Domain <$Domain> | Select cn
+Get-ADGroup -Filter 'Name -like "*admin*" | Select  Name'
+
+# Domain Group Members 
+Get-DomainGroupMember -Identity "Domain Admins" -Recurse
+Get-ADGroupMember -Identity "Domain Admins" -Recursive 
+
+# Membership for a User
+Get-DomainGroup -UserName "<name>"
+Get-ADPrincipalGroupMembership -Identity <name>
+
+# List all the local groups on a machine 
+Get-NetLocalGroup -ComputerName <name>
+Get-NetLocalGroup -ComputerName <name> -GroupName Administrators 
+
+# Logged Users (local admin priv required)
+Get-NetLoggedon -ComputerName <name>
+Get-LoggedonLocal -ComputerName <name>
+Get-LastLoggedOn -ComputerName <name>
+
+# Find shares, files, fileserver on hosts
+# Recommended PowerHuntShares
+# https://github.com/NetSPI/PowerHuntShares
+Invoke-ShareFinder -Verbose 
+Invoke-FileFinder -Verbose
+Get-NetFileServer
+
+Invoke-HuntSMBShares -NoPint -OutputDirectory C:\Tools -HostList C:\Tools\servers.txt
+
 ```
 
 ---
